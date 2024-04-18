@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import PlayerVsPlayer from './src/screens/TicTacToe/PlayerVsPlayer/PlayerVSPlayer';
-import PlayerVsComputer from './src/screens/TicTacToe/PlayerVsComputer';
+import PlayerVsComputer from './src/screens/TicTacToe/PlayerVsComputer/PlayerVsComputer';
 import SplashScreen from './src/screens/SplashScreen/SplashScreen';
 import MenuGame from './src/screens/MenuGame/MenuGame';
 import TicTacToeHome from './src/screens/TicTacToe/TicTacToeHome';
