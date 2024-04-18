@@ -152,17 +152,24 @@ const PlayerVsComputer = () => {
 
   const reMove = () => {
     const newBoard = [...board];
-    newBoard[xClickHistory[xClickHistory.length - 1].rowIndex][
-      xClickHistory[xClickHistory.length - 1].colIndex
-    ] = '';
-    newBoard[oClickHistory[oClickHistory.length - 1].rowIndex][
-      oClickHistory[oClickHistory.length - 1].colIndex
-    ] = '';
-    setBoard(newBoard);
-    const newXClickHistory = xClickHistory.slice(0, xClickHistory.length - 1);
-    setXClickHistory(newXClickHistory);
-    const newOClickHistory = oClickHistory.slice(0, oClickHistory.length - 1);
-    setOClickHistory(newOClickHistory);
+    if (turn === 1 && oClickHistory.length > 0) {
+      newBoard[oClickHistory[oClickHistory.length - 1].rowIndex][
+        oClickHistory[oClickHistory.length - 1].colIndex
+      ] = '';
+      const newOClickHistory = oClickHistory.slice(0, oClickHistory.length - 1);
+      setOClickHistory(newOClickHistory);
+      setTurn(2);
+      setBoard(newBoard);
+    }
+    if (turn === 2 && xClickHistory.length > 0) {
+      newBoard[xClickHistory[xClickHistory.length - 1].rowIndex][
+        xClickHistory[xClickHistory.length - 1].colIndex
+      ] = '';
+      const newXClickHistory = xClickHistory.slice(0, xClickHistory.length - 1);
+      setXClickHistory(newXClickHistory);
+      setTurn(1);
+      setBoard(newBoard);
+    }
   };
 
   const newGame = () => {
