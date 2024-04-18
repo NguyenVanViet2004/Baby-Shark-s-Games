@@ -14,10 +14,12 @@ import {
   FONTFAMILY,
   checkForWinner,
   initialBoardState,
-} from '../../DefineObject';
-import SquareComponent from '../../components/SquareComponent';
+} from '../../../DefineObject';
+import SquareComponent from '../../../components/SquareComponent';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ResultsGame from '../../../components/ResultsGame';
+import {useNavigation} from '@react-navigation/native';
 
 const PlayerVsComputer = () => {
   const [board, setBoard] = React.useState(initialBoardState);
@@ -29,6 +31,7 @@ const PlayerVsComputer = () => {
   >([]);
   const [turn, setTurn] = React.useState(1); // 1 for X, 2 for O
   const [winner, setWinner] = React.useState<null | string>(null);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   const handlePlayerClick = (rowIndex: number, colIndex: number) => {
     const newClickHistory = [...xClickHistory, {rowIndex, colIndex}];
@@ -140,7 +143,7 @@ const PlayerVsComputer = () => {
           const result = checkForWinner(newBoard); // check for winner again
           if (result) {
             setWinner(result);
-            Alert.alert('Game Over', `${result} wins!`);
+            setModalVisible(true);
           }
         }, 1000);
       }
@@ -162,6 +165,30 @@ const PlayerVsComputer = () => {
     setOClickHistory(newOClickHistory);
   };
 
+  const newGame = () => {
+    const newHistory: {rowIndex: number; colIndex: number}[] = [];
+    setBoard([
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+    ]);
+    setXClickHistory(newHistory);
+    setOClickHistory(newHistory);
+    setTurn(1);
+    setWinner(null);
+    setModalVisible(false);
+  };
+
+  const navigation = useNavigation();
+
+  const exitGame = () => {
+    setModalVisible(false);
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'MenuGame' as never}],
+    });
+  };
+
   return (
     <LinearGradient colors={COLORS.backGround} style={styles.container}>
       <SafeAreaView style={styles.headerContainer}>
@@ -174,7 +201,7 @@ const PlayerVsComputer = () => {
           <Text style={styles.playerTitle}>You</Text>
         </View>
         <Image
-          source={require('../../assets/images/vs_icon.png')}
+          source={require('../../../assets/images/vs_icon.png')}
           style={styles.vs_icon}
         />
         <View style={styles.playerElement}>
@@ -193,6 +220,12 @@ const PlayerVsComputer = () => {
             value={row}
             rowIndex={rowIndex}
             onPress={handleClick}
+            winner={winner}
+            firstXClick={xClickHistory[0]}
+            firstOClick={oClickHistory[0]}
+            lengthX={xClickHistory.length}
+            lengthO={oClickHistory.length}
+            turn={turn}
           />
         </View>
       ))}
@@ -202,12 +235,24 @@ const PlayerVsComputer = () => {
             colors={['blue', 'lightyellow']}
             style={styles.backIconContainer}>
             <Image
-              source={require('../../assets/images/back.png')}
+              source={require('../../../assets/images/back.png')}
               style={styles.backIcon}
             />
           </LinearGradient>
         </TouchableOpacity>
       </View>
+      <ResultsGame
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        title={winner === 'X' ? 'You win' : 'You lose'}
+        icon={
+          winner === 'X'
+            ? require('../../../assets/images/win_icon.gif')
+            : require('../../../assets/images/lose_icon.gif')
+        }
+        newGameFunction={() => newGame()}
+        exitFunction={() => exitGame()}
+      />
     </LinearGradient>
   );
 };
