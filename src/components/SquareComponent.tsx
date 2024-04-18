@@ -41,41 +41,66 @@ const SquareComponent = ({
     }
     return false;
   };
+
+  const getColor = (val: string, win: string | null): string => {
+    if (val === 'X') {
+      return win === 'X' || win === 'O' ? 'white' : 'red';
+    } else {
+      return win === 'O' ? 'white' : '#00f7ff';
+    }
+  };
+
   return (
     <View style={styles.row}>
       {/* [row][0] */}
       <Pressable
         onPress={() => onPress(rowIndex, 0)}
-        style={[styles.firstItem]}>
+        style={[
+          styles.firstItem,
+          winner === 'X' && value[0] === 'X' && styles.xWin,
+          winner === 'O' && value[1] === 'O' && styles.oWin,
+        ]}>
         <Text
           style={[
             styles.text,
-            {color: value[0] === 'X' ? 'red' : 'blue'},
+            {color: getColor(value[0], winner)},
             checkFirstClick(rowIndex, 0) && styles.firstClick,
           ]}>
-          {!winner ? value[0] : ''}
+          {value[0]}
         </Text>
       </Pressable>
       {/* [row][1] */}
-      <Pressable onPress={() => onPress(rowIndex, 1)} style={styles.secondItem}>
+      <Pressable
+        onPress={() => onPress(rowIndex, 1)}
+        style={[
+          styles.secondItem,
+          winner === 'X' && value[1] === 'X' && styles.xWin,
+          winner === 'O' && value[1] === 'O' && styles.oWin,
+        ]}>
         <Text
           style={[
             styles.text,
-            {color: value[1] === 'X' ? 'red' : 'blue'},
+            {color: getColor(value[1], winner)},
             checkFirstClick(rowIndex, 1) && styles.firstClick,
           ]}>
-          {!winner ? value[1] : ''}
+          {value[1]}
         </Text>
       </Pressable>
       {/* [row][2] */}
-      <Pressable onPress={() => onPress(rowIndex, 2)} style={styles.thirdItem}>
+      <Pressable
+        onPress={() => onPress(rowIndex, 2)}
+        style={[
+          styles.thirdItem,
+          winner === 'X' && value[2] === 'X' && styles.xWin,
+          winner === 'O' && value[2] === 'O' && styles.oWin,
+        ]}>
         <Text
           style={[
             styles.text,
-            {color: value[2] === 'X' ? 'red' : 'blue'},
+            {color: getColor(value[2], winner)},
             checkFirstClick(rowIndex, 2) && styles.firstClick,
           ]}>
-          {!winner ? value[2] : ''}
+          {value[2]}
         </Text>
       </Pressable>
     </View>
@@ -122,6 +147,13 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.JetBrainsMono_Bold,
   },
   firstClick: {
+    opacity: 0.5,
+  },
+  xWin: {
+    backgroundColor: '#ff00006c',
+  },
+  oWin: {
+    backgroundColor: '#2fdbe182',
     opacity: 0.5,
   },
 });

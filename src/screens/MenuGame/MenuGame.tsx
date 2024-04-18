@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   subTitleItemGame: {
     fontSize: 16,
     fontFamily: FONTFAMILY.JetBrainsMono_Medium,
+    color: 'white',
   },
   gamePlayTitle: {
     fontFamily: FONTFAMILY.JetBrainsMono_Medium,

@@ -7,6 +7,8 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './PlayerVsPlayer.styles';
 import ResultsGame from '../../../components/ResultsGame';
 import {useNavigation} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
+
 
 const PlayerVsPlayer = () => {
   const [board, setBoard] = React.useState(initialBoardState);
@@ -19,6 +21,12 @@ const PlayerVsPlayer = () => {
   const [turn, setTurn] = React.useState(1); // 1 for X, 2 for O
   const [winner, setWinner] = React.useState<null | string>(null);
   const [modalVisible, setModalVisible] = React.useState(false);
+  
+  useFocusEffect(
+    React.useCallback(() => {
+      newGame();
+    }, []),
+  );
 
   // player 1
   const handlePlayer1Click = (rowIndex: number, colIndex: number) => {
@@ -64,7 +72,9 @@ const PlayerVsPlayer = () => {
       const result = checkForWinner(newBoard); // check for winner
       if (result) {
         setWinner(result);
-        setModalVisible(true);
+        setTimeout(() => {
+          setModalVisible(true);
+        }, 2000);
       }
     }
   };
@@ -73,8 +83,7 @@ const PlayerVsPlayer = () => {
     const newBoard = [...board];
     if (turn === 1 && oClickHistory.length > 0) {
       newBoard[oClickHistory[oClickHistory.length - 1].rowIndex][
-        oClickHistory[oClickHistory.length - 1].colIndex
-      ] = '';
+        oClickHistory[oClickHistory.length - 1].colIndex] = '';
       const newOClickHistory = oClickHistory.slice(0, oClickHistory.length - 1);
       setOClickHistory(newOClickHistory);
       setTurn(2);
@@ -82,8 +91,7 @@ const PlayerVsPlayer = () => {
     }
     if (turn === 2 && xClickHistory.length > 0) {
       newBoard[xClickHistory[xClickHistory.length - 1].rowIndex][
-        xClickHistory[xClickHistory.length - 1].colIndex
-      ] = '';
+        xClickHistory[xClickHistory.length - 1].colIndex] = '';
       const newXClickHistory = xClickHistory.slice(0, xClickHistory.length - 1);
       setXClickHistory(newXClickHistory);
       setTurn(1);
@@ -109,6 +117,7 @@ const PlayerVsPlayer = () => {
   const navigation = useNavigation();
 
   const exitGame = () => {
+    newGame();
     setModalVisible(false);
     navigation.reset({
       index: 0,
