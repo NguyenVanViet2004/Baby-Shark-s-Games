@@ -1,25 +1,14 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import {
-  Alert,
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {
-  COLORS,
-  FONTFAMILY,
-  checkForWinner,
-  initialBoardState,
-} from '../../../DefineObject';
+import {COLORS, checkForWinner, initialBoardState} from '../../../DefineObject';
 import SquareComponent from '../../../components/SquareComponent';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ResultsGame from '../../../components/ResultsGame';
 import {useNavigation} from '@react-navigation/native';
+import {PlayerVsComputerStyles as styles} from './PlayerVsComputer.styles';
+import {useFocusEffect} from '@react-navigation/native';
 
 const PlayerVsComputer = () => {
   const [board, setBoard] = React.useState(initialBoardState);
@@ -32,6 +21,13 @@ const PlayerVsComputer = () => {
   const [turn, setTurn] = React.useState(1); // 1 for X, 2 for O
   const [winner, setWinner] = React.useState<null | string>(null);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const navigation = useNavigation();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      newGame();
+    }, []),
+  );
 
   const handlePlayerClick = (rowIndex: number, colIndex: number) => {
     const newClickHistory = [...xClickHistory, {rowIndex, colIndex}];
@@ -143,9 +139,11 @@ const PlayerVsComputer = () => {
           const result = checkForWinner(newBoard); // check for winner again
           if (result) {
             setWinner(result);
-            setModalVisible(true);
+            setTimeout(() => {
+              setModalVisible(true);
+            }, 2000);
           }
-        }, 1000);
+        }, 200);
       }
     }
   };
@@ -186,9 +184,8 @@ const PlayerVsComputer = () => {
     setModalVisible(false);
   };
 
-  const navigation = useNavigation();
-
   const exitGame = () => {
+    newGame();
     setModalVisible(false);
     navigation.reset({
       index: 0,
@@ -265,56 +262,3 @@ const PlayerVsComputer = () => {
 };
 
 export default PlayerVsComputer;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  lineColorBottom: {
-    borderTopWidth: 1,
-    borderColor: 'white',
-    height: 1,
-    width: '75%',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 30,
-    fontFamily: FONTFAMILY.JetBrainsMono_Medium,
-  },
-  elementContainer: {
-    flex: 1,
-  },
-  headerContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 30,
-  },
-  vs_icon: {
-    width: 70,
-    height: 60,
-  },
-  playerElement: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  playerTitle: {
-    fontFamily: FONTFAMILY.JetBrainsMono_Medium,
-  },
-  backIcon: {
-    width: 50,
-    height: 50,
-  },
-  backIconContainer: {
-    padding: 10,
-    borderRadius: 100,
-  },
-});
