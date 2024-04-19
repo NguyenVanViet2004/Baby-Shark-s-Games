@@ -7,6 +7,7 @@ import SplashScreen from './src/screens/SplashScreen/SplashScreen';
 import MenuGame from './src/screens/MenuGame/MenuGame';
 import TicTacToeHome from './src/screens/TicTacToe/TicTacToeHome';
 import Minesweeper from './src/screens/Minesweeper/Minesweeper';
+import FlappyBird from './src/screens/FlappyBird/FlappyBird';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ const App = () => {
         <Stack.Screen name="PlayerVsPlayer" component={PlayerVsPlayer} />
         <Stack.Screen name="PlayerVsComputer" component={PlayerVsComputer} />
         <Stack.Screen name="Minesweeper" component={Minesweeper} />
+        <Stack.Screen name="FlappyBird" component={FlappyBird} />
       </Stack.Navigator>
     </NavigationContainer>
   );
