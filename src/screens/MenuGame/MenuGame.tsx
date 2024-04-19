@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'yellow',
     padding: 10,
+    marginVertical: 10,
   },
   imageItem: {
     width: 70,
