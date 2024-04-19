@@ -20,6 +20,8 @@ interface colors {
   modalBackGroundColor: string;
   light_yellow: string;
   white: string;
+  red: string;
+  minesweeperBackgroundColor: string[];
 }
 
 export const COLORS: colors = {
@@ -30,6 +32,8 @@ export const COLORS: colors = {
   modalBackGroundColor: 'rgba(0, 0, 0, 0.5)',
   light_yellow: '#FFFF00',
   white: '#FFFFFF',
+  red: '#ff0000',
+  minesweeperBackgroundColor: ['#87CEEB', '#4682B4'],
 };
 
 // DefineObject.ts
@@ -86,5 +90,11 @@ export const menuGame: menuGameElement[] = [
     image: require('../src/assets/images/tic_tac_toe_icon.png'),
     titleGame: 'Tic Tac Toe',
     subTitleGame: 'Mode: 3 x 3',
+  },
+  {
+    toScreen: 'Minesweeper',
+    image: require('../src/assets/images/Minesweeper_icon.png'),
+    titleGame: 'Minesweeper',
+    subTitleGame: 'Trò chơi dò mìn',
   },
 ];
