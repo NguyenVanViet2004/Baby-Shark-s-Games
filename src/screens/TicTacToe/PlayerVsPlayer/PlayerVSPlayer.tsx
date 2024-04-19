@@ -7,8 +7,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './PlayerVsPlayer.styles';
 import ResultsGame from '../../../components/ResultsGame';
 import {useNavigation} from '@react-navigation/native';
-import { useFocusEffect } from '@react-navigation/native';
-
+import {useFocusEffect} from '@react-navigation/native';
 
 const PlayerVsPlayer = () => {
   const [board, setBoard] = React.useState(initialBoardState);
@@ -21,7 +20,7 @@ const PlayerVsPlayer = () => {
   const [turn, setTurn] = React.useState(1); // 1 for X, 2 for O
   const [winner, setWinner] = React.useState<null | string>(null);
   const [modalVisible, setModalVisible] = React.useState(false);
-  
+
   useFocusEffect(
     React.useCallback(() => {
       newGame();
@@ -83,7 +82,8 @@ const PlayerVsPlayer = () => {
     const newBoard = [...board];
     if (turn === 1 && oClickHistory.length > 0) {
       newBoard[oClickHistory[oClickHistory.length - 1].rowIndex][
-        oClickHistory[oClickHistory.length - 1].colIndex] = '';
+        oClickHistory[oClickHistory.length - 1].colIndex
+      ] = '';
       const newOClickHistory = oClickHistory.slice(0, oClickHistory.length - 1);
       setOClickHistory(newOClickHistory);
       setTurn(2);
@@ -91,7 +91,8 @@ const PlayerVsPlayer = () => {
     }
     if (turn === 2 && xClickHistory.length > 0) {
       newBoard[xClickHistory[xClickHistory.length - 1].rowIndex][
-        xClickHistory[xClickHistory.length - 1].colIndex] = '';
+        xClickHistory[xClickHistory.length - 1].colIndex
+      ] = '';
       const newXClickHistory = xClickHistory.slice(0, xClickHistory.length - 1);
       setXClickHistory(newXClickHistory);
       setTurn(1);
@@ -127,6 +128,11 @@ const PlayerVsPlayer = () => {
 
   return (
     <LinearGradient colors={COLORS.backGround} style={styles.container}>
+      <SafeAreaView style={styles.chevron_left_icon_container}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialIcon name="chevron-left" size={40} color={'white'} />
+        </TouchableOpacity>
+      </SafeAreaView>
       <SafeAreaView style={styles.headerContainer}>
         <View style={styles.playerElement}>
           <MaterialIcon

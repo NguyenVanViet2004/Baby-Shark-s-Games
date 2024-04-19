@@ -1,5 +1,6 @@
 /* eslint-disable react/self-closing-comp */
 import {
+  FlatList,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -9,23 +10,28 @@ import {
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {COLORS, FONTFAMILY} from '../../DefineObject';
+import {
+  COLORS,
+  FONTFAMILY,
+  menuGame,
+  menuGameElement,
+} from '../../DefineObject';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 
-const ItemGame = () => {
+const ItemGame = ({game, index}: {game: menuGameElement, index: number}) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('TicTacToeHome' as never)}
+    <TouchableOpacity key={index}
+      onPress={() => navigation.navigate(game.toScreen as never)}
       style={styles.ItemGameContainer}>
       <Image
-        source={require('../../assets/images/tic_tac_toe_icon.png')}
+        source={game.image}
         style={styles.imageItem}
       />
       <View style={styles.itemTitle}>
-        <Text style={styles.titleItemGame}>Tic Tac Toe</Text>
-        <Text style={styles.subTitleItemGame}>Mode: 3 x 3</Text>
+        <Text style={styles.titleItemGame}>{game.titleGame}</Text>
+        <Text style={styles.subTitleItemGame}>{game.subTitleGame}</Text>
       </View>
 
       <View style={styles.playButtonContainer}>
@@ -42,7 +48,11 @@ const MenuGame = () => {
       <SafeAreaView style={styles.tittleContainer}>
         <Text style={styles.title}>Game List</Text>
       </SafeAreaView>
-      <ItemGame />
+
+      <FlatList
+        data={menuGame}
+        renderItem={({item, index}) => <ItemGame game={item} index={index}/>}
+      />
     </LinearGradient>
   );
 };

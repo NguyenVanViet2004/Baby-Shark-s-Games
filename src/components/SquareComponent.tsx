@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
-import {View, Pressable, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, StyleSheet, Dimensions} from 'react-native';
 import {FONTFAMILY} from '../DefineObject';
+import SquareButton from './SquareButtonTicTacToe';
 
 const {width, height} = Dimensions.get('window');
 
@@ -53,56 +54,56 @@ const SquareComponent = ({
   return (
     <View style={styles.row}>
       {/* [row][0] */}
-      <Pressable
+      <SquareButton
         onPress={() => onPress(rowIndex, 0)}
-        style={[
+        buttonStyles={[
           styles.firstItem,
           winner === 'X' && value[0] === 'X' && styles.xWin,
-          winner === 'O' && value[1] === 'O' && styles.oWin,
-        ]}>
-        <Text
-          style={[
-            styles.text,
-            {color: getColor(value[0], winner)},
-            checkFirstClick(rowIndex, 0) && styles.firstClick,
-          ]}>
-          {value[0]}
-        </Text>
-      </Pressable>
+          winner === 'O' && value[0] === 'O' && styles.oWin,
+        ]}
+        value={value[0]}
+        valueStyles={[
+          styles.text,
+          {color: getColor(value[0], winner)},
+          checkFirstClick(rowIndex, 0) && styles.firstClick,
+        ]}
+        rowIndex={rowIndex}
+        colIndex={0}
+      />
       {/* [row][1] */}
-      <Pressable
+      <SquareButton
         onPress={() => onPress(rowIndex, 1)}
-        style={[
+        buttonStyles={[
           styles.secondItem,
           winner === 'X' && value[1] === 'X' && styles.xWin,
           winner === 'O' && value[1] === 'O' && styles.oWin,
-        ]}>
-        <Text
-          style={[
-            styles.text,
-            {color: getColor(value[1], winner)},
-            checkFirstClick(rowIndex, 1) && styles.firstClick,
-          ]}>
-          {value[1]}
-        </Text>
-      </Pressable>
+        ]}
+        value={value[1]}
+        valueStyles={[
+          styles.text,
+          {color: getColor(value[1], winner)},
+          checkFirstClick(rowIndex, 1) && styles.firstClick,
+        ]}
+        rowIndex={rowIndex}
+        colIndex={1}
+      />
       {/* [row][2] */}
-      <Pressable
+      <SquareButton
         onPress={() => onPress(rowIndex, 2)}
-        style={[
+        buttonStyles={[
           styles.thirdItem,
           winner === 'X' && value[2] === 'X' && styles.xWin,
           winner === 'O' && value[2] === 'O' && styles.oWin,
-        ]}>
-        <Text
-          style={[
-            styles.text,
-            {color: getColor(value[2], winner)},
-            checkFirstClick(rowIndex, 2) && styles.firstClick,
-          ]}>
-          {value[2]}
-        </Text>
-      </Pressable>
+        ]}
+        value={value[2]}
+        valueStyles={[
+          styles.text,
+          {color: getColor(value[2], winner)},
+          checkFirstClick(rowIndex, 2) && styles.firstClick,
+        ]}
+        rowIndex={rowIndex}
+        colIndex={2}
+      />
     </View>
   );
 };
