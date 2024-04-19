@@ -4,8 +4,6 @@ import { FONTFAMILY } from '../../../DefineObject';
 export const PlayerVsComputerStyles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   row: {
     flexDirection: 'row',
@@ -19,6 +17,7 @@ export const PlayerVsComputerStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'center',
   },
   title: {
     fontSize: 30,
@@ -32,6 +31,7 @@ export const PlayerVsComputerStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 30,
+    alignSelf: 'center',
   },
   vs_icon: {
     width: 70,
@@ -51,5 +51,8 @@ export const PlayerVsComputerStyles = StyleSheet.create({
   backIconContainer: {
     padding: 10,
     borderRadius: 100,
+  },
+  chevron_left_icon_container: {
+    margin: 20,
   },
 });

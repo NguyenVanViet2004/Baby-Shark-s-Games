@@ -195,6 +195,11 @@ const PlayerVsComputer = () => {
 
   return (
     <LinearGradient colors={COLORS.backGround} style={styles.container}>
+      <SafeAreaView style={styles.chevron_left_icon_container}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialIcon name="chevron-left" size={40} color={'white'} />
+        </TouchableOpacity>
+      </SafeAreaView>
       <SafeAreaView style={styles.headerContainer}>
         <View style={styles.playerElement}>
           <MaterialIcon

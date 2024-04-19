@@ -72,3 +72,19 @@ export const checkForWinner = (newBoard: string[][]) => {
   }
   return null;
 };
+
+export interface menuGameElement {
+  toScreen: string;
+  image: number;
+  titleGame: string;
+  subTitleGame: string;
+}
+
+export const menuGame: menuGameElement[] = [
+  {
+    toScreen: 'TicTacToeHome',
+    image: require('../src/assets/images/tic_tac_toe_icon.png'),
+    titleGame: 'Tic Tac Toe',
+    subTitleGame: 'Mode: 3 x 3',
+  },
+];
