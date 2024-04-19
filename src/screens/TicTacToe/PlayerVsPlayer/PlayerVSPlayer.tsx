@@ -7,6 +7,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './PlayerVsPlayer.styles';
 import ResultsGame from '../../../components/ResultsGame';
 import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 
 const PlayerVsPlayer = () => {
   const [board, setBoard] = React.useState(initialBoardState);
@@ -19,6 +20,12 @@ const PlayerVsPlayer = () => {
   const [turn, setTurn] = React.useState(1); // 1 for X, 2 for O
   const [winner, setWinner] = React.useState<null | string>(null);
   const [modalVisible, setModalVisible] = React.useState(false);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      newGame();
+    }, []),
+  );
 
   // player 1
   const handlePlayer1Click = (rowIndex: number, colIndex: number) => {
@@ -64,7 +71,9 @@ const PlayerVsPlayer = () => {
       const result = checkForWinner(newBoard); // check for winner
       if (result) {
         setWinner(result);
-        setModalVisible(true);
+        setTimeout(() => {
+          setModalVisible(true);
+        }, 2000);
       }
     }
   };
@@ -109,6 +118,7 @@ const PlayerVsPlayer = () => {
   const navigation = useNavigation();
 
   const exitGame = () => {
+    newGame();
     setModalVisible(false);
     navigation.reset({
       index: 0,
@@ -118,6 +128,11 @@ const PlayerVsPlayer = () => {
 
   return (
     <LinearGradient colors={COLORS.backGround} style={styles.container}>
+      <SafeAreaView style={styles.chevron_left_icon_container}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialIcon name="chevron-left" size={40} color={'white'} />
+        </TouchableOpacity>
+      </SafeAreaView>
       <SafeAreaView style={styles.headerContainer}>
         <View style={styles.playerElement}>
           <MaterialIcon

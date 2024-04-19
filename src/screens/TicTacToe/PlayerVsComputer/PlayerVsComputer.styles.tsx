@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
-import {FONTFAMILY} from '../../../DefineObject';
+import { FONTFAMILY } from '../../../DefineObject';
 
-export const styles = StyleSheet.create({
+export const PlayerVsComputerStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     borderColor: 'white',
     height: 1,
     width: '75%',
-    flex: 2,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
@@ -23,16 +23,19 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: FONTFAMILY.JetBrainsMono_Medium,
   },
+  elementContainer: {
+    flex: 1,
+  },
   headerContainer: {
-    flex: 2,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 30,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   vs_icon: {
     width: 70,
-    height: 75,
+    height: 60,
   },
   playerElement: {
     alignItems: 'center',
