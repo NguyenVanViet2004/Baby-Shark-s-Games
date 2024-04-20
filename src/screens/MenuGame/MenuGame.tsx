@@ -72,20 +72,29 @@ const styles = StyleSheet.create({
     borderColor: 'yellow',
     padding: 10,
     marginVertical: 10,
+    gap: 20,
   },
   imageItem: {
     width: 70,
     height: 70,
+    resizeMode: 'cover',
   },
-  itemTitle: {},
-  playButtonContainer: {},
+  itemTitle: {
+    flex: 2,
+    alignItems: 'center',
+  },
+  playButtonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   titleItemGame: {
     fontSize: 20,
     fontFamily: FONTFAMILY.JetBrainsMono_Medium,
     color: 'yellow',
   },
   subTitleItemGame: {
-    fontSize: 16,
+    fontSize: 12,
     fontFamily: FONTFAMILY.JetBrainsMono_Medium,
     color: 'white',
   },

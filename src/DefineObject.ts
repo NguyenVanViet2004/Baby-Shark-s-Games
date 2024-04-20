@@ -89,12 +89,18 @@ export const menuGame: menuGameElement[] = [
     toScreen: 'TicTacToeHome',
     image: require('../src/assets/images/tic_tac_toe_icon.png'),
     titleGame: 'Tic Tac Toe',
-    subTitleGame: 'Mode: 3 x 3',
+    subTitleGame: 'Chế độ 3 x 3',
   },
   {
     toScreen: 'Minesweeper',
     image: require('../src/assets/images/Minesweeper_icon.png'),
     titleGame: 'Minesweeper',
     subTitleGame: 'Trò chơi dò mìn',
+  },
+  {
+    toScreen: 'FlappyBird',
+    image: require('../src/assets/images/flappy_bird_icon.png'),
+    titleGame: 'Flappy Bird',
+    subTitleGame: 'Trò chơi huyền thoại',
   },
 ];
