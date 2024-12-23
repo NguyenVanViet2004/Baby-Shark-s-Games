@@ -66,7 +66,7 @@ const PlayerVsComputer = () => {
       for (let j = 0; j < 3; j++) {
         if (board[i][j] === '') {
           board[i][j] = 'O';
-          const score = minimax(board, 0, false);
+          const score = minimax(board, 0, false, -Infinity, Infinity);
           board[i][j] = '';
           if (score > bestScore) {
             bestScore = score;
@@ -83,10 +83,14 @@ const PlayerVsComputer = () => {
     board: string[][],
     depth: number,
     isMaximizing: boolean,
+    alpha: number,
+    beta: number,
   ): number => {
     const result = checkForWinner(board);
     if (result !== null) {
-      return result === 'O' ? 10 - depth : -10 + depth;
+      if (result === 'O') return 10 - depth;
+      if (result === 'X') return depth - 10;
+      return 0; // Hòa
     }
 
     if (isMaximizing) {
@@ -95,9 +99,11 @@ const PlayerVsComputer = () => {
         for (let j = 0; j < 3; j++) {
           if (board[i][j] === '') {
             board[i][j] = 'O';
-            const score = minimax(board, depth + 1, false);
+            const score = minimax(board, depth + 1, false, alpha, beta);
             board[i][j] = '';
             bestScore = Math.max(score, bestScore);
+            alpha = Math.max(alpha, bestScore);
+            if (beta <= alpha) break;
           }
         }
       }
@@ -108,9 +114,11 @@ const PlayerVsComputer = () => {
         for (let j = 0; j < 3; j++) {
           if (board[i][j] === '') {
             board[i][j] = 'X';
-            const score = minimax(board, depth + 1, true);
+            const score = minimax(board, depth + 1, true, alpha, beta);
             board[i][j] = '';
             bestScore = Math.min(score, bestScore);
+            beta = Math.min(beta, bestScore);
+            if (beta <= alpha) break;
           }
         }
       }
